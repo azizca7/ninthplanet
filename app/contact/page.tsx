@@ -154,7 +154,8 @@ export default function ContactPage() {
             </h1>
             <p className="text-gray-400 max-w-2xl mx-auto">
               Have a question, project idea, or want to collaborate? Reach out
-              to The Ninth Planet and let's create something cosmic together.
+              to The Ninth Planet and let&apos;s create something cosmic
+              together.
             </p>
           </motion.div>
 
@@ -340,8 +341,8 @@ export default function ContactPage() {
                         Message Sent!
                       </h2>
                       <p className="text-gray-300 mb-6">
-                        Thank you for reaching out. We'll get back to you as
-                        soon as possible.
+                        Thank you for reaching out. We&apos;ll get back to you
+                        as soon as possible.
                       </p>
                     </>
                   )}
