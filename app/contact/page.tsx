@@ -3,13 +3,7 @@
 import type React from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  Send,
-  Mail,
-  MessageSquare,
-
-  AlertCircle,
-} from "lucide-react";
+import { Send, Mail, MessageSquare, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import StarBackground from "@/components/StarBackground";
 import emailjs from "@emailjs/browser";
@@ -32,17 +26,17 @@ export default function ContactPage() {
     const newErrors: Record<string, string> = {};
 
     if (!formState.name.trim()) {
-      newErrors.name = "Name is required";
+      newErrors.name = "Имя обязательно";
     }
 
     if (!formState.email.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = "Email обязателен";
     } else if (!/^\S+@\S+\.\S+$/.test(formState.email)) {
-      newErrors.email = "Email is invalid";
+      newErrors.email = "Некорректный email";
     }
 
     if (!formState.message.trim()) {
-      newErrors.message = "Message is required";
+      newErrors.message = "Сообщение обязательно";
     }
 
     setErrors(newErrors);
@@ -68,8 +62,8 @@ export default function ContactPage() {
 
     try {
       const serviceID = "service_4xan7s7";
-      const templateID ="template_jerbulr";
-      const publicKey ="vY89uYzfYbcUPZTGK";
+      const templateID = "template_jerbulr";
+      const publicKey = "vY89uYzfYbcUPZTGK";
 
       await emailjs.send(
         serviceID,
@@ -77,7 +71,7 @@ export default function ContactPage() {
         {
           from_name: formState.name,
           from_email: formState.email,
-          subject: formState.subject || "No subject",
+          subject: formState.subject || "Без темы",
           message: formState.message,
         },
         publicKey
@@ -91,8 +85,10 @@ export default function ContactPage() {
         message: "",
       });
     } catch (error) {
-      console.error("Error submitting form:", error);
-      setSubmitError("Failed to send message. Please try again later.");
+      console.error("Ошибка при отправке формы:", error);
+      setSubmitError(
+        "Не удалось отправить сообщение. Пожалуйста, попробуйте позже."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -150,12 +146,11 @@ export default function ContactPage() {
         >
           <motion.div className="text-center mb-16" variants={itemVariants}>
             <h1 className="text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-500">
-              Contact Us
+              Свяжитесь с нами
             </h1>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Have a question, project idea, or want to collaborate? Reach out
-              to The Ninth Planet and let&apos;s create something cosmic
-              together.
+              Есть вопросы, идеи проектов или хотите сотрудничать? Обратитесь в
+              The Ninth Planet, и давайте создадим что-то космическое вместе.
             </p>
           </motion.div>
 
@@ -164,7 +159,7 @@ export default function ContactPage() {
               {!isSubmitted ? (
                 <div className="bg-zinc-900/50 backdrop-blur-sm p-8 rounded-2xl border border-zinc-800/50 shadow-xl">
                   <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
-                    Send a Message
+                    Отправить сообщение
                   </h2>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -173,7 +168,7 @@ export default function ContactPage() {
                         htmlFor="name"
                         className="block text-sm font-medium text-gray-300 mb-1"
                       >
-                        Your Name
+                        Ваше имя
                       </label>
                       <input
                         type="text"
@@ -184,7 +179,7 @@ export default function ContactPage() {
                         className={`w-full px-4 py-3 bg-zinc-800/50 border ${
                           errors.name ? "border-red-500" : "border-zinc-700"
                         } rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors`}
-                        placeholder="Enter your name"
+                        placeholder="Введите ваше имя"
                       />
                       {errors.name && (
                         <p className="mt-1 text-sm text-red-500 flex items-center">
@@ -199,7 +194,7 @@ export default function ContactPage() {
                         htmlFor="email"
                         className="block text-sm font-medium text-gray-300 mb-1"
                       >
-                        Email Address
+                        Email адрес
                       </label>
                       <input
                         type="email"
@@ -210,7 +205,7 @@ export default function ContactPage() {
                         className={`w-full px-4 py-3 bg-zinc-800/50 border ${
                           errors.email ? "border-red-500" : "border-zinc-700"
                         } rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors`}
-                        placeholder="Enter your email"
+                        placeholder="Введите ваш email"
                       />
                       {errors.email && (
                         <p className="mt-1 text-sm text-red-500 flex items-center">
@@ -225,7 +220,7 @@ export default function ContactPage() {
                         htmlFor="subject"
                         className="block text-sm font-medium text-gray-300 mb-1"
                       >
-                        Subject
+                        Тема
                       </label>
                       <select
                         id="subject"
@@ -234,11 +229,13 @@ export default function ContactPage() {
                         onChange={handleChange}
                         className="w-full px-4 py-3 bg-zinc-800/50 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
                       >
-                        <option value="">Select a subject</option>
-                        <option value="collaboration">Collaboration</option>
-                        <option value="booking">Booking</option>
-                        <option value="production">Music Production</option>
-                        <option value="other">Other</option>
+                        <option value="">Выберите тему</option>
+                        <option value="collaboration">Сотрудничество</option>
+                        <option value="booking">Бронирование</option>
+                        <option value="production">
+                          Музыкальная продукция
+                        </option>
+                        <option value="other">Другое</option>
                       </select>
                     </div>
 
@@ -247,7 +244,7 @@ export default function ContactPage() {
                         htmlFor="message"
                         className="block text-sm font-medium text-gray-300 mb-1"
                       >
-                        Message
+                        Сообщение
                       </label>
                       <textarea
                         id="message"
@@ -258,7 +255,7 @@ export default function ContactPage() {
                         className={`w-full px-4 py-3 bg-zinc-800/50 border ${
                           errors.message ? "border-red-500" : "border-zinc-700"
                         } rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors`}
-                        placeholder="Your message here..."
+                        placeholder="Ваше сообщение здесь..."
                       />
                       {errors.message && (
                         <p className="mt-1 text-sm text-red-500 flex items-center">
@@ -304,12 +301,12 @@ export default function ContactPage() {
                               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                             ></path>
                           </svg>
-                          <span>Sending...</span>
+                          <span>Отправка...</span>
                         </>
                       ) : (
                         <>
                           <Send className="h-5 w-5" />
-                          <span>Send Message</span>
+                          <span>Отправить сообщение</span>
                         </>
                       )}
                     </motion.button>
@@ -328,7 +325,7 @@ export default function ContactPage() {
                         <AlertCircle className="h-8 w-8 text-white" />
                       </div>
                       <h2 className="text-2xl font-semibold mb-2 text-white">
-                        Sending Failed
+                        Ошибка отправки
                       </h2>
                       <p className="text-gray-300 mb-6">{submitError}</p>
                     </>
@@ -338,11 +335,11 @@ export default function ContactPage() {
                         <Send className="h-8 w-8 text-white" />
                       </div>
                       <h2 className="text-2xl font-semibold mb-2 text-white">
-                        Message Sent!
+                        Сообщение отправлено!
                       </h2>
                       <p className="text-gray-300 mb-6">
-                        Thank you for reaching out. We&apos;ll get back to you
-                        as soon as possible.
+                        Спасибо за ваше обращение. Мы ответим вам как можно
+                        скорее.
                       </p>
                     </>
                   )}
@@ -355,7 +352,9 @@ export default function ContactPage() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    {submitError ? "Try Again" : "Send Another Message"}
+                    {submitError
+                      ? "Попробовать снова"
+                      : "Отправить новое сообщение"}
                   </motion.button>
                 </motion.div>
               )}
@@ -364,7 +363,7 @@ export default function ContactPage() {
             <motion.div variants={itemVariants} className="space-y-8">
               <div className="bg-zinc-900/50 backdrop-blur-sm p-8 rounded-2xl border border-zinc-800/50 shadow-xl">
                 <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
-                  Contact Information
+                  Контактная информация
                 </h2>
 
                 <div className="space-y-6">
@@ -381,7 +380,7 @@ export default function ContactPage() {
                         href="mailto:contact@theninthplanet.com"
                         className="text-indigo-400 hover:text-indigo-300 text-sm inline-flex items-center mt-1"
                       >
-                        Send an email <Send className="h-3 w-3 ml-1" />
+                        Написать email <Send className="h-3 w-3 ml-1" />
                       </a>
                     </div>
                   </div>
@@ -392,10 +391,10 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="text-lg font-medium text-white">
-                        Response Time
+                        Время ответа
                       </h3>
                       <p className="text-gray-400">
-                        We typically respond within 24-48 hours
+                        Обычно мы отвечаем в течение 24-48 часов
                       </p>
                     </div>
                   </div>
@@ -404,11 +403,11 @@ export default function ContactPage() {
 
               <div className="bg-zinc-900/50 backdrop-blur-sm p-8 rounded-2xl border border-zinc-800/50 shadow-xl">
                 <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
-                  Follow Us
+                  Подпишитесь на нас
                 </h2>
                 <p className="text-gray-400 mb-6">
-                  Stay connected with The Ninth Planet on social media for the
-                  latest updates, releases, and behind the scenes content.
+                  Будьте на связи с The Ninth Planet в социальных сетях, чтобы
+                  получать последние обновления, релизы и закулисный контент.
                 </p>
 
                 <div className="flex flex-wrap gap-4">
@@ -429,11 +428,12 @@ export default function ContactPage() {
 
               <div className="bg-gradient-to-r from-indigo-900/30 to-purple-900/30 p-8 rounded-2xl border border-indigo-800/30 shadow-xl">
                 <h2 className="text-xl font-semibold mb-2 text-white">
-                  Looking for collaborations
+                  Ищем сотрудничества
                 </h2>
                 <p className="text-gray-300">
-                  The Ninth Planet is always open to new creative collaborations
-                  with artists, producers, and visual creators.
+                  The Ninth Planet всегда открыт для новых творческих
+                  коллабораций с артистами, продюсерами и визуальными
+                  художниками.
                 </p>
               </div>
             </motion.div>
@@ -441,43 +441,45 @@ export default function ContactPage() {
 
           <motion.div className="mt-20" variants={itemVariants}>
             <h2 className="text-3xl font-bold mb-8 text-center text-white">
-              Frequently Asked Questions
+              Часто задаваемые вопросы
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-zinc-900/30 backdrop-blur-sm p-6 rounded-xl border border-zinc-800/30">
                 <h3 className="text-xl font-medium mb-2 text-indigo-300">
-                  Do you offer music production services?
+                  Вы предлагаете услуги музыкального продюсирования?
                 </h3>
                 <p className="text-gray-400">
-                  Yes, we provide full-cycle music production services including
-                  composition, recording, mixing, and mastering.
+                  Да, мы предоставляем полный цикл услуг музыкального
+                  продюсирования, включая композицию, запись, сведение и
+                  мастеринг.
                 </p>
               </div>
               <div className="bg-zinc-900/30 backdrop-blur-sm p-6 rounded-xl border border-zinc-800/30">
                 <h3 className="text-xl font-medium mb-2 text-indigo-300">
-                  Are you available for live performances?
+                  Вы доступны для живых выступлений?
                 </h3>
                 <p className="text-gray-400">
-                  We perform at various venues and events. Contact us with your
-                  event details for booking information.
+                  Мы выступаем на различных площадках и мероприятиях. Свяжитесь
+                  с нами с деталями вашего мероприятия для информации о
+                  бронировании.
                 </p>
               </div>
               <div className="bg-zinc-900/30 backdrop-blur-sm p-6 rounded-xl border border-zinc-800/30">
                 <h3 className="text-xl font-medium mb-2 text-indigo-300">
-                  How can I license your music?
+                  Как я могу лицензировать вашу музыку?
                 </h3>
                 <p className="text-gray-400">
-                  For licensing inquiries, please contact us directly through
-                  the form with details about your project.
+                  Для запросов на лицензирование, пожалуйста, свяжитесь с нами
+                  напрямую через форму, указав детали вашего проекта.
                 </p>
               </div>
               <div className="bg-zinc-900/30 backdrop-blur-sm p-6 rounded-xl border border-zinc-800/30">
                 <h3 className="text-xl font-medium mb-2 text-indigo-300">
-                  Do you offer mentoring for new producers?
+                  Вы предлагаете менторство для новых продюсеров?
                 </h3>
                 <p className="text-gray-400">
-                  We occasionally offer mentoring sessions and workshops. Follow
-                  us on social media for announcements.
+                  Мы периодически проводим менторские сессии и воркшопы.
+                  Подпишитесь на нас в соцсетях для получения анонсов.
                 </p>
               </div>
             </div>
@@ -489,8 +491,7 @@ export default function ContactPage() {
             variants={itemVariants}
           >
             <p>
-              © {new Date().getFullYear()} The Ninth Planet. All rights
-              reserved.
+              © {new Date().getFullYear()} The Ninth Planet. Все права защищены.
             </p>
           </motion.div>
         </motion.div>
