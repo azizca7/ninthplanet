@@ -65,8 +65,8 @@ export default function YamadzhiPage() {
               </p>
               <p>
                 Автор платиновых релизов, включая хит
-                <span className="text-indigo-400 font-medium"> "Minimum" </span>
-                с более 100 млн прослушиваний.
+                <span className="text-indigo-400 font-medium"> Minimum </span>
+                c более 100 млн прослушиваний.
               </p>
               <p>
                 Основатель
