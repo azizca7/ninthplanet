@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+/* Oddiy cursor */
+* {
+  cursor: url('/cursor.png'), auto;
+}
+
+/* Linklar, buttonlar va h.k. uchun pointer cursor */
+a, button {
+  cursor: url('/pointer.png'), pointer;
+}
+@layer components{
+
+  .cursorPointer *{
+    cursor: url('/pointer.png'), auto !important;
+  }
+}
+/* Light mode variables */
+:root {
+  --background: #ffffff;
+  --foreground: #111111;
+
+  --brand: #4C57FF;
+  --accent: #e2e8f0;
+  --muted: #f5f5f5;
+  --border: #e4e4e7;
+
+  --text-primary: #111111;
+  --text-secondary: #666666;
+
+  --card-bg: #f9f9f9;
+  --card-border: #dcdcdc;
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #f4f4f5;
+
+    --brand: #7F5AF0;
+    --accent: #1f1f1f;
+    --muted: #2a2a2a;
+    --border: #333333;
+
+    --text-primary: #ffffff;
+    --text-secondary: #c5c5c5;
+
+    --card-bg: #111111;
+    --card-border: #1e1e1e;
+  }
+}
+
+/* Tailwind utility fallback */
+body {
+  @apply antialiased;
+}
